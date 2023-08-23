@@ -34,5 +34,8 @@ WHERE customer_id NOT IN (SELECT DISTINCT customer_id FROM orders)
 
 SELECT DISTINCT product_name
 FROM products
-JOIN order_details USING(product_id)
-WHERE order_details.quantity = '10'
+WHERE products.product_id IN (
+  SELECT order_details.product_id
+  FROM order_details
+  WHERE order_details.quantity = 10
+);
